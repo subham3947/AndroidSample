@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nakul.day7.MainActivity">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Name"
+        android:id="@+id/name"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Phone"
+        android:layout_below="@+id/name"
+        android:id="@+id/ph"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD CONTACT"
+        android:layout_below="@+id/ph"
+        android:id="@+id/con"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UPDATE CONTACT"
+        android:id="@+id/update"
+        android:layout_below="@+id/con" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DISPLAY ALL"
+        android:id="@+id/dall"
+        android:layout_below="@+id/update" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DISPLAY PARTICULAR"
+        android:id="@+id/dp"
+        android:layout_below="@+id/dall" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/display"
+        android:hint="Here"
+        android:singleLine="false"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Id"
+        android:id="@+id/id"
+        android:layout_below="@+id/display"
+        android:gravity="center"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DElete"
+        android:layout_below="@+id/id"
+        android:id="@+id/del"
+        />
+
+
+</RelativeLayout>
