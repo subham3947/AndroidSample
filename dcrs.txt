@@ -1,0 +1,98 @@
+from tkinter import *
+import tkinter
+from tkinter import ttk
+from tkinter import messagebox as msg
+from openpyxl import load_workbook
+
+
+class Root(Tk):
+    
+    def __init__(self): # Initializer method
+        # Create instance
+        super(Root,self).__init__()
+        self.title("CRDS")
+        global val
+        val=tkinter.IntVar()
+        self.file='C:\\Users\\m39881\\Test_Param.xlsx'
+        tabcontrol=ttk.Notebook(self)
+        self.tab1=ttk.Frame(tabcontrol)
+        tabcontrol.add(self.tab1, text='Write')
+        tabcontrol.grid(row=0,column=0,sticky='nsew')
+        self.FirstTabWidgets()
+        self.tab2=ttk.Frame(tabcontrol)
+        tabcontrol.add(self.tab2, text='Run')
+        tabcontrol.grid(row=0,column=0,sticky='nsew')
+        #self.SecondTabWidgets()
+        
+    def msgBox(self):
+        answer=msg.askyesnocancel('Warning','Are you sure you want to write?')
+        if answer==True:
+            self.writeFile()
+            
+    def writeCell(self,ws,rind,cind,var):
+        ws.cell(row=rind, column=cind+1).value = var
+        return
+            
+    def writeFile(self):
+        try:
+            self.filename=self.file
+            wb=load_workbook(self.filename)
+            ws=wb.active
+            self.row_ind=1
+            val_list=[self.scno.get(),self.scname.get()]
+        
+            for self.i in range(len(val_list)):
+                self.writeCell(ws,self.row_ind,self.i,val_list[self.i])
+            
+            #success_label.configure(text='Write Successful')
+        
+        except FileNotFoundError:
+            msgBox()
+        finally:
+            wb.save(self.filename)
+            print('file closed')
+        
+    def FirstTabWidgets(self):
+        global val
+        ttk.Label(self.tab1, text = "Feature").grid(row = 0) 
+        self.tgt_lyr=ttk.Combobox(self.tab1, values=['PTM','E2E'], width=17)
+        self.tgt_lyr.grid(row = 0, column = 1,padx=5, pady=5)
+        #self.val.set(self.tgt_lyr.get())
+        self.tgt_lyr.bind('<<ComboboxSelected>>', self.SetFeatValue)
+        val=self.tgt_lyr.get()
+        
+        ttk.Label(self.tab1, text = "Scenario No.").grid(row = 1)
+        self.scno=ttk.Entry(self.tab1)
+        self.scno.grid(row = 1, column = 1,padx=5, pady=5) 
+
+        ttk.Label(self.tab1, text = "Scenario Name").grid(row = 2) 
+        self.scname=ttk.Entry(self.tab1)
+        self.scname.grid(row = 2, column = 1,padx=5, pady=5)
+        
+        write_btn=tkinter.Button(self.tab1, text = "Write", command = self.msgBox,height=2,width=20).grid(row=3,column=1)
+
+    def SecondTabWidgets(self):
+        global val
+        global feature_entry
+        val=tkinter.IntVar()
+        val.set(self.tgt_lyr.get())
+        ttk.Label(self.tab2, text = "Feature").grid(row = 0) 
+        self.feature_entry =ttk.Entry(self.tab2,textvariable=val,state=DISABLED,width=30).grid(row = 0, column = 1) 
+        #self.feature_entry.configure(state='disabled')
+       
+        
+    def SetFeatValue(self,event=None):
+        global feature_entry
+        val=self.tgt_lyr.get()
+        self.SecondTabWidgets()
+        
+        
+        #feature_entry.insert(0, val.get())
+        
+    
+        
+        
+        
+if __name__=='__main__':
+    root=Root()
+    root.mainloop()
